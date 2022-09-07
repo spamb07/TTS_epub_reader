@@ -1,0 +1,55 @@
+{
+	"name_spaces":{
+		"dc":"http://purl.org/dc/elements/1.1/",
+		"opf":"http://www.idpf.org/2007/opf"
+	},
+	"id3_mappings":{
+		"ALBUM,ALBUMSORT": [ {
+			"data":{
+				"dc:title.text":"raw"
+			}
+		} ],
+		"ARTIST,ALBUMARTIST": [ { 
+			"validate": {
+				"dc:creator.opf:role":"aut"
+			},
+			"data":{
+				"pop.text":"raw"
+			}
+		},
+		{ 
+			"validate": {
+				"dc:creator.id":"id-1"
+			},
+			"data":{
+				"pop.text":"raw"
+			}	
+		},
+		{ 
+			"validate": {
+				"dc:creator.id":"creator01"
+			},
+			"data":{
+				"pop.text":"raw"
+			}	
+		}, ],
+		"PUBLISHER": [ { "data":{"dc:publisher.text":"raw"} } ],
+		"DATE": [ { "data": { "dc:date.text": "read_datetime" } } ],
+		"ASIN": [ { 
+			"validate": {
+				"dc:identifier.opf:scheme":"AMAZON"
+			},
+			"data":{
+				"pop.text":"raw"
+			}
+		},
+		{ 
+			"validate": {
+				"dc:identifier.opf:scheme":"MOBI-ASIN"
+			},
+			"data":{
+				"pop.text":"raw"
+			}
+		} ]
+	}
+}

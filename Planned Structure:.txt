@@ -1,0 +1,28 @@
+Planned Structure:
+
+EPUB Interpreter (To General "Book" Format -- fullEpub.json)
+	Metadata
+	Manifest (Tag -> File in Zip)
+	Spine (Ordered Tags)
+	TOC (Tree representation of Ordereed Tags Entry Point)
+
+fullEpub.json Interpreter:
+	General Format to SSML
+	General Format to Raw Text
+	General Format to Book Metadata (Mapping)
+
+Metadata Mapper
+	Config file Interpreter
+	Book Metadata -> MP3 Metadata Mapping
+	Output as Metadata file
+		Kodi NFO
+		ID3 JSON/YAML/TOML/INI
+			Ingestion directly into MP3
+		Plex Metadata JSON
+
+
+SSML to Query (Polly)
+	Query to MP3
+	Query to Lyric file (Paragraph or word)
+	Query JSON Dump
+
