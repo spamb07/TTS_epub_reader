@@ -32,7 +32,7 @@
 			"data":{
 				"pop.text":"raw"
 			}	
-		}, ],
+		} ],
 		"PUBLISHER": [ { "data":{"dc:publisher.text":"raw"} } ],
 		"DATE": [ { "data": { "dc:date.text": "read_datetime" } } ],
 		"ASIN": [ { 
