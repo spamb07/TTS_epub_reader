@@ -327,7 +327,7 @@ def process_ssml_queries(ssml_queries, selected_voice, output_dir):
 
         # Save SSML JSON
         with open(ssml_json_filename, "w") as json_file:
-            json.dump(ssml_json, json_file, indent=4)
+            json.dump(ssml_json, json_file, indent=4, ensure_ascii=False)
 
         # Save Lyrics as LRC
         with open(lrc_filename, "w") as lrc_file:

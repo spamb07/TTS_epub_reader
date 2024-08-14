@@ -140,7 +140,7 @@ def main(args):
     pprint.PrettyPrinter().pprint(id3_tag_output)
     
     with open(args.output, "w") as outfile:
-        json.dump(id3_tag_output, outfile, indent=4, sort_keys=True)
+        json.dump(id3_tag_output, outfile, indent=4, sort_keys=True, ensure_ascii=False)
 
 def json_type(string):
     with open(string) as json_file:

@@ -14,11 +14,11 @@ internal_tag_set = {
 
 reserved_characters = { # Using Amazon's documentation for now: https://docs.aws.amazon.com/polly/latest/dg/escapees.html
 	"\"": "&quot;",
-	"&": "&amp;",
 	"'": "&apos;",
 	"<": "&lt;",
 	">": "&gt;",
 	"\u2019": "&apos;",
+	"—": " ",
 }
 
 splitting_substrings = { # Used for meeting character limit requirements
@@ -106,6 +106,11 @@ def main(args):
             if "content" in tag:
                 # Run the content through accent2alpha to convert accented characters
                 temp_content = accent2alpha(tag["content"])
+
+                # Significant update: Added specific handling for the '&' character separately before applying broader replacements.
+                # This ensures that ampersands are correctly escaped before any other replacements are made.
+                temp_content = replaceAll(temp_content, mapping={"&": "&amp;"})
+                temp_content = replaceAll(temp_content)
                 
                 # Replace accented characters with their ASCII equivalents
                 content_text = replaceAll(temp_content.encode("ascii", errors='ignore').decode("ascii", errors='ignore'))
@@ -366,7 +371,7 @@ def main(args):
 
     # Save the final SSML queries to the output file
     with open(args.output, "w") as outfile:
-        json.dump(final_dictionary, outfile, indent=4, sort_keys=True)
+        json.dump(final_dictionary, outfile, indent=4, sort_keys=True, ensure_ascii=False)
 
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     print("Generated Queries\n  The following or the identified 'tracknames' and the number of queries needed:")

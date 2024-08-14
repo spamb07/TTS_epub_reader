@@ -8,7 +8,7 @@ def load_json(file_path):
 
 def save_json(data, file_path):
     with open(file_path, 'w') as file:
-        json.dump(data, file, indent=4, sort_keys=True)
+        json.dump(data, file, indent=4, sort_keys=True, ensure_ascii=False)
 
 def is_unreadable_track(track):
     # Check if ssml_queries is empty or contains one item that is just xml tags
