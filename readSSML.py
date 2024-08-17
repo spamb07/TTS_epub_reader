@@ -123,34 +123,43 @@ def add_id3_tags(output_filename, track_metadata):
         audiofile.tag.track_num = track_metadata["TRACK"]
 
     if "DATE" in track_metadata:
-        # Set release date, original release date, recording date, and year
         date_value = track_metadata["DATE"]
-
-        audiofile.tag.release_date = date_value
-
-        # Attempt to parse the year from the date
-        year_value = None
-        if len(date_value) >= 4:
-            year_value = date_value[:4]
-
-        if year_value:
-            audiofile.tag.recording_date = year_value
-            audiofile.tag.original_release_date = year_value
-            audiofile.tag.tagging_date = year_value  # Often used for the year
-
-            # Set the year (older ID3v2.3)
-            audiofile.tag.year = year_value
+        
+        if date_value:
+            # Set release date, original release date, recording date, and year
+            audiofile.tag.release_date = date_value
+            
+            # Attempt to parse the year from the date
+            year_value = None
+            if len(date_value) >= 4:
+                year_value = date_value[:4]
+                
+            if year_value:
+                audiofile.tag.recording_date = year_value
+                audiofile.tag.original_release_date = year_value
+                audiofile.tag.tagging_date = year_value  # Often used for the year
+                
+                # Set the year (older ID3v2.3)
+                audiofile.tag.year = year_value
+        else:
+            print(f"Warning: 'DATE' metadata is missing or invalid for {output_filename}. Skipping date tags.")
 
     if "PUBLISHER" in track_metadata:
         audiofile.tag.publisher = track_metadata["PUBLISHER"]
 
     # The genre can be set to Audiobook (ID3 genre 183) if not specified
-    audiofile.tag.genre = track_metadata.get("genre", "Audiobook")
-    if audiofile.tag.genre.lower() == "audiobook":
+    genre = str(audiofile.tag.genre).lower() if audiofile.tag.genre else "audiobook"
+    if genre == "audiobook":
         audiofile.tag.genre = 183  # Set to Audiobook genre code
 
     # Save the changes to the file
-    audiofile.tag.save()
+    try:
+        audiofile.tag.save()
+        print(f"Successfully saved ID3 tags to {output_filename}")
+    except Exception as e:
+        print(f"Error saving ID3 tags to {output_filename}: {e}")
+
+
 
 
 def calculate_audio_duration(audio_content):
